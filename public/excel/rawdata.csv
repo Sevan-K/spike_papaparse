@@ -1,0 +1,17 @@
+Country;sharing_fees_value;Min_Basket_ranges;Max_Basket_ranges;Credit_type_FR;Credit_type_EN;installment_min;installment_max;Client_rate_min;Client_rate_max;Merchant_rate_min;Merchant_rate_max;Variable_1;Variable_2;merchant_bloc_display;client_bloc_display;our_recommendation_display
+France;NA;0;99;NA;NA;;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+France;no;100;3000;payement;payment ;3;3;0;0;3,1;3,1;Taux de commission ;%;Je paye Taux de commission 3,1%;NA;Optez pour le payement en 3 fois  sans frais
+France;yes ;100;3000;payement;payment ;3;3;1,5;1,5;1,6;1,6;Taux de commission ;Taux de commission ;Je paye Taux de commission 1,6%;Mon client paye Taux de commission 1,5%;Optez pour le payement en 3 fois  avec partage de frais
+France;no;300;4000;payement;payment ;4;4;0;0;4,5;4,5;Taux de commission ;NA;Je paye Taux de commission 4,5%;NA;Optez pour le payement en 4 fois  sans frais
+France;yes ;300;4000;payement;payment ;4;4;2,2;2,2;2,3;2,3;Taux de commission ;Taux de commission ;Je paye Taux de commission 2,3%;Mon client paye Taux de commission 2,2%;Optez pour le payement en 4 fois  avec partage de frais
+France;no;1000;30000;Cr�dit long;long credit;4;60;0;0;7,5;7,5;Taux de commission ;NA;Je paye Taux de commission  � partir de 7,5%;NA;optez pour long credit de 4-60 mois. 
+France;yes ;1000;30000;Cr�dit long;long credit;4;60;3;3,5;4,5;5;Taux d'int�r�t ;Taux d'int�r�t ;Je paye Taux d'int�r�t  entre 4,5 - 5%; Mon client paye Taux d'int�r�t  entre 3 - 3,5%;optez pour long credit de 4-60 mois.  avec partage de frais 
+France;no;30000;99999;Cr�dit long;long credit;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;�Merci de bien vouloir contacter notre �quipe afin de convenir des meilleures modalit�s pour vous.
+France;yes ;30000;99999;Cr�dit long;long credit;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;�Merci de bien vouloir contacter notre �quipe afin de convenir des meilleures modalit�s pour vous.
+Germany;NA;0;99;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+Germany;no;100;1000;payement;payment ;3;4;0;0;3,2;3,5;Taux de commission;NA;Je paye Taux de commission entre 3,2 - 3,5%;NA;Optez pour le payement en 3 fois  sans frais
+Germany;yes ;100;1000;payement;payment ;3;4;1;1,2;2,2;2,3;Taux de commission;Taux de commission;Je paye Taux de commission entre 2,2 - 2,3%;Mon client paye Taux de commission entre 1 - 1,2%;Optez pour le payement en 3 fois  avec partage de frais
+Germany;no;150;30000;Cr�dit long;long credit;6;48;0;0;7.5;8.9;Taux d'int�r�t;NA;Je paye Taux d'int�r�t entre 7.5 - 8.9%;NA;optez pour long credit de 6-48 mois. 
+Germany;yes ;150;30000;Cr�dit long;long credit;6;48;0;0;7.6;8.10;Taux d'int�r�t;NA;Je paye Taux d'int�r�t entre 7.6 - 8.10%;NA;optez pour long credit de 6-48 mois. 
+Germany;no;30000;99999;Cr�dit long;long credit;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;�Merci de bien vouloir contacter notre �quipe afin de convenir des meilleures modalit�s pour vous.
+Germany;yes ;30000;99999;Cr�dit long;long credit;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;�Merci de bien vouloir contacter notre �quipe afin de convenir des meilleures modalit�s pour vous.
