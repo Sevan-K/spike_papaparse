@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Papa from "papaparse";
 
+// https://stats.govt.nz/assets/Uploads/Annual-enterprise-survey/Annual-enterprise-survey-2021-financial-year-provisional/Download-data/annual-enterprise-survey-2021-financial-year-provisional-csv.csv
+
 const ParseCsv = () => {
+  const [columnToFilter, setColumnToFilter] = useState("");
   const [parsedData, setParsedData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [nameSearch, setNameSrerach] = useState("");
+  const [inputFilter, setInputFilter] = useState("");
 
   const getDataFromParsedFile = (result) => {
     console.log(result);
     setParsedData(result.data);
+    setFilteredData(result.data);
     setColumns(result.meta.fields);
   };
 
@@ -46,9 +52,11 @@ const ParseCsv = () => {
       console.log("parsedData ====> ", parsedData);
     }
   }, [parsedData]);
+
   useEffect(() => {
     if (columns.length > 0) {
       console.log("columns ====> ", columns);
+      setColumnToFilter(columns[0]);
     }
   }, [columns]);
 
@@ -57,6 +65,29 @@ const ParseCsv = () => {
       console.log("nameSearch ====> ", nameSearch);
     }
   }, [nameSearch]);
+
+  useEffect(() => {
+    if (columnToFilter.length > 0) {
+      console.log("columnToFilter ====> ", columnToFilter);
+    }
+  }, [columnToFilter]);
+
+  useEffect(() => {
+    // usefull ?
+    if (columnToFilter.length === 0 && columns.length > 0) {
+      setColumnToFilter(columns[0]);
+    }
+    if (
+      parsedData.length > 0 &&
+      columnToFilter.length > 0 &&
+      inputFilter.length > 0
+    ) {
+      let result = parsedData.filter((row) =>
+        row[columnToFilter].toLowerCase().includes(inputFilter.toLowerCase())
+      );
+      setFilteredData(result);
+    }
+  }, [columnToFilter, columns, inputFilter, parsedData]);
 
   return (
     <div>
@@ -73,14 +104,24 @@ const ParseCsv = () => {
           <label htmlFor="filterColumn">
             Selectionnez une colonne à filtrer
           </label>
-          <select name="filterColumn" id="filterColumn">
+          <select
+            name="filterColumn"
+            id="filterColumn"
+            value={columnToFilter}
+            onChange={(event) => setColumnToFilter(event.target.value)}>
             {columns.map((column, index) => (
               <option key={index} value={column}>
                 {column}
               </option>
             ))}
           </select>
-          
+
+          <input
+            type="text"
+            name="filter"
+            id="filter"
+            onChange={(event) => setInputFilter(event.target.value)}
+          />
 
           {/* Table */}
           <table>
@@ -92,12 +133,12 @@ const ParseCsv = () => {
               </tr>
             </thead>
             <tbody>
-              {parsedData.map((value, indexRow) => (
+              {filteredData.map((value, indexRow) => (
                 <tr key={indexRow}>
                   {columns.map((column, indexCol) => (
-                    <th key={`col${indexCol}rox${indexRow}`}>
+                    <td key={`col${indexCol}rox${indexRow}`}>
                       {value[column]}
-                    </th>
+                    </td>
                   ))}
                 </tr>
               ))}
@@ -107,7 +148,7 @@ const ParseCsv = () => {
       )}
 
       <div>
-        <label htmlFor="search">Recherchez un nom</label>
+        <label htmlFor="search">Recherchez : {columnToFilter}</label>
         <input
           type="text"
           name="search"
@@ -118,12 +159,12 @@ const ParseCsv = () => {
             } else {
               if (parsedData.length > 0) {
                 let result = parsedData.filter((row) =>
-                  row.nom
+                  row[columnToFilter]
                     .toLowerCase()
                     .includes(event.target.value.toLowerCase())
                 );
                 if (result.length > 0) {
-                  setNameSrerach(result[0].nom);
+                  setNameSrerach(result[0][columnToFilter]);
                 } else {
                   setNameSrerach("Pas de résultats");
                 }
