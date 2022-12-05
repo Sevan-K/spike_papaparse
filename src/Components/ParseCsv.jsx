@@ -8,7 +8,7 @@ const ParseCsv = () => {
   const [parsedData, setParsedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [columns, setColumns] = useState([]);
-  const [nameSearch, setNameSrerach] = useState("");
+  const [nameSearch, setNameSearch] = useState("");
   const [inputFilter, setInputFilter] = useState("");
 
   const getDataFromParsedFile = (result) => {
@@ -77,11 +77,10 @@ const ParseCsv = () => {
     if (columnToFilter.length === 0 && columns.length > 0) {
       setColumnToFilter(columns[0]);
     }
-    if (
-      parsedData.length > 0 &&
-      columnToFilter.length > 0 &&
-      inputFilter.length > 0
-    ) {
+    if (inputFilter.length === 0) {
+      setFilteredData(parsedData);
+    }
+    if (parsedData.length > 0 && columnToFilter.length > 0) {
       let result = parsedData.filter((row) =>
         row[columnToFilter].toLowerCase().includes(inputFilter.toLowerCase())
       );
@@ -101,27 +100,33 @@ const ParseCsv = () => {
       {parsedData.length > 0 && columns.length > 0 && (
         <>
           {/* Filter */}
-          <label htmlFor="filterColumn">
-            Selectionnez une colonne à filtrer
-          </label>
-          <select
-            name="filterColumn"
-            id="filterColumn"
-            value={columnToFilter}
-            onChange={(event) => setColumnToFilter(event.target.value)}>
-            {columns.map((column, index) => (
-              <option key={index} value={column}>
-                {column}
-              </option>
-            ))}
-          </select>
+          <div>
+            <label htmlFor="filterColumn">
+              Selectionnez une colonne à filtrer
+            </label>
+            <select
+              name="filterColumn"
+              id="filterColumn"
+              value={columnToFilter}
+              onChange={(event) => setColumnToFilter(event.target.value)}>
+              {columns.map((column, index) => (
+                <option key={index} value={column}>
+                  {column}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          <input
-            type="text"
-            name="filter"
-            id="filter"
-            onChange={(event) => setInputFilter(event.target.value)}
-          />
+          <div>
+            <label htmlFor="filter">Filtrer sur la colonne ciblée</label>
+            <input
+              type="text"
+              name="filter"
+              id="filter"
+              value={inputFilter}
+              onChange={(event) => setInputFilter(event.target.value)}
+            />
+          </div>
 
           {/* Table */}
           <table>
@@ -144,39 +149,39 @@ const ParseCsv = () => {
               ))}
             </tbody>
           </table>
+
+          <div>
+            <label htmlFor="search">Recherchez : {columnToFilter}</label>
+            <input
+              type="text"
+              name="search"
+              id="search"
+              onChange={(event) => {
+                if (event.target.value === "") {
+                  setNameSearch("");
+                } else {
+                  if (parsedData.length > 0) {
+                    let result = parsedData.filter((row) =>
+                      row[columnToFilter]
+                        .toLowerCase()
+                        .includes(event.target.value.toLowerCase())
+                    );
+                    if (result.length > 0) {
+                      setNameSearch(result[0][columnToFilter]);
+                    } else {
+                      setNameSearch("Pas de résultats");
+                    }
+                  } else {
+                    setNameSearch("Pas de fichier");
+                  }
+                }
+              }}
+            />
+            <br />
+            {nameSearch && <p>{nameSearch}</p>}
+          </div>
         </>
       )}
-
-      <div>
-        <label htmlFor="search">Recherchez : {columnToFilter}</label>
-        <input
-          type="text"
-          name="search"
-          id="search"
-          onChange={(event) => {
-            if (event.target.value === "") {
-              setNameSrerach("");
-            } else {
-              if (parsedData.length > 0) {
-                let result = parsedData.filter((row) =>
-                  row[columnToFilter]
-                    .toLowerCase()
-                    .includes(event.target.value.toLowerCase())
-                );
-                if (result.length > 0) {
-                  setNameSrerach(result[0][columnToFilter]);
-                } else {
-                  setNameSrerach("Pas de résultats");
-                }
-              } else {
-                setNameSrerach("Pas de fichier");
-              }
-            }
-          }}
-        />
-        <br />
-        {nameSearch && <p>{nameSearch}</p>}
-      </div>
     </div>
   );
 };
